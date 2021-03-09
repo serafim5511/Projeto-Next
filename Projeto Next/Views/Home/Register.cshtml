@@ -1,0 +1,79 @@
+﻿@model Projeto_Next.Models.DadosPessoais
+
+@using (Html.BeginForm("Registrar", "Home", FormMethod.Post))
+{
+    <h1>Dados pessoais</h1>
+    <div class="form-group md-form">
+        <input asp-for="Nome" type="text" name="Nome" placeholder="Nome" class="form-control validate" />
+    </div>
+    <div class="form-group md-form">
+        <input asp-for="CPF" type="text" name="CPF" placeholder="CPF" class="form-control validate" />
+    </div>
+    <div class="form-group md-form">
+        <input asp-for="DataNascimento" type="text" name="DataNascimento" placeholder="Data de nascimento" class="form-control validate" />
+    </div>
+    <div class="form-group md-form">
+        <input asp-for="Email" type="text" name="Email" placeholder="Email" class="form-control validate" />
+    </div>
+    <div class="form-group md-form">
+        <input asp-for="Telefone" type="text" name="Telefone" placeholder="Telefone" class="form-control validate" />
+    </div>
+    <h1>Endereço</h1>
+    <div class="form-group md-form">
+        <input asp-for="EnderecosResidencial.CEP" type="text" name="EnderecosResidencial.CEP" onblur="pesquisacep(this.value);" placeholder="CEP" class="form-control validate" required="required" />
+    </div>
+    <div class="form-group md-form">
+        <input asp-for="EnderecosResidencial.Logradouro" type="text" name="EnderecosResidencial.Logradouro" id="Logradouro" placeholder="Logradouro" class="form-control validate" readonly="readonly" />
+    </div>
+    <div class="form-group md-form">
+        <input asp-for="EnderecosResidencial.Bairro" type="text" name="EnderecosResidencial.Bairro" id="Bairro" placeholder="Bairro" class="form-control validate" readonly="readonly" />
+    </div>
+    <div class="form-group md-form">
+        <input asp-for="EnderecosResidencial.Numero" type="text" name="EnderecosResidencial.Numero" placeholder="Numero" class="form-control validate" />
+    </div>
+    <div class="form-group md-form">
+        <input asp-for="EnderecosResidencial.Cidade" type="text" name="EnderecosResidencial.Cidade" id="Cidade" placeholder="Cidade" class="form-control validate" readonly="readonly" />
+    </div>
+    <div class="form-group md-form">
+        <input asp-for="EnderecosResidencial.UF" type="text" name="EnderecosResidencial.UF" id="UF" placeholder="UF" class="form-control validate" readonly="readonly" />
+    </div>
+    <div class="form-group md-form">
+        @{
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            
+            listItems.Add(new SelectListItem
+            {
+                Text = "Entrega",
+                Value = "Entrega"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "Cobranca",
+                Value = "Cobranca",
+                Selected = true
+            });
+        }
+        @Html.DropDownListFor(model => model.EnderecosResidencial.Tipo, listItems, "Seleciona um tipo", new { @class = "form-control", @required = "required" })
+    </div>
+    <h1>Seguraça</h1>
+    <div class="form-group md-form">
+        @Html.TextBoxFor(txt => txt.Senha, new { @class = "form-control", @required = "required", @name = "Senha", @placeholder = "Senha", @type = "password" })
+    </div>
+    <div class="form-group md-form">
+        <button type="submit" class="btn btn-success">Cadastrar</button>
+    </div>
+}
+
+<script>
+    function pesquisacep(valor) {
+
+        $.getJSON("https://viacep.com.br/ws/" + valor + "/json/", function (valor) {
+            $("#Logradouro").val(valor.logradouro);
+            $("#Bairro").val(valor.bairro);
+            $("#Cidade").val(valor.localidade);
+            $("#UF").val(valor.uf);
+
+        });
+    };
+
+</script>
