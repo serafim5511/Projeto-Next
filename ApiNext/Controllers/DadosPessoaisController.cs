@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Projeto_Next.Models;
+using ApiNext.Models;
 
 namespace ApiNext.Controllers
 {
@@ -99,7 +99,7 @@ namespace ApiNext.Controllers
         {  
             try
             {
-                var cliente = await _context.DadosPessoais.Where(d => d.Email == Email && d.Senha == senha).Select(d => new Projeto_Next.Models.DadosPessoais
+                var cliente = await _context.DadosPessoais.Where(d => d.Email == Email && d.Senha == senha).Select(d => new ApiNext.Models.DadosPessoais
                 {
                     Id = d.Id,
                     CPF = d.CPF,
@@ -107,7 +107,7 @@ namespace ApiNext.Controllers
                     DataNascimento = d.DataNascimento,
                     Email = d.Email,
                     Telefone = d.Telefone,
-                    EnderecosResidencial = _context.EnderecoResidencial.Where(e => e.Id == d.Id).Select(d => new Projeto_Next.Models.EnderecoResidencial
+                    EnderecosResidencial = _context.EnderecoResidencial.Where(e => e.Id == d.Id).Select(d => new ApiNext.Models.EnderecoResidencial
                     {
                         Id = d.Id,
                         CEP = d.CEP,
@@ -138,7 +138,7 @@ namespace ApiNext.Controllers
         {
             try
             {
-                var cliente = await _context.DadosPessoais.Where(d => d.CPF == cpf).Select(d => new Projeto_Next.Models.DadosPessoais
+                var cliente = await _context.DadosPessoais.Where(d => d.CPF == cpf).Select(d => new ApiNext.Models.DadosPessoais
                 {
                     Id = d.Id,
                     CPF = d.CPF,
@@ -147,7 +147,7 @@ namespace ApiNext.Controllers
                     Email = d.Email,
                     Telefone = d.Telefone,
                     EnderecosResidencialId = d.EnderecosResidencialId,
-                    EnderecosResidencial = _context.EnderecoResidencial.Where(e => e.Id == d.EnderecosResidencialId).Select(d => new Projeto_Next.Models.EnderecoResidencial
+                    EnderecosResidencial = _context.EnderecoResidencial.Where(e => e.Id == d.EnderecosResidencialId).Select(d => new ApiNext.Models.EnderecoResidencial
                     {
                         Id = d.Id,
                         CEP = d.CEP,

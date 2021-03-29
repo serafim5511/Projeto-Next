@@ -9,8 +9,8 @@ using Projeto_Next.Models;
 namespace Projeto_Next.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210305191151_Enit")]
-    partial class Enit
+    [Migration("20210329123429_numero1")]
+    partial class numero1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,14 +36,13 @@ namespace Projeto_Next.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EnderecosComercialId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EnderecosResidencialId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Senha")
                         .HasColumnType("nvarchar(max)");
@@ -53,47 +52,9 @@ namespace Projeto_Next.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EnderecosComercialId");
-
                     b.HasIndex("EnderecosResidencialId");
 
                     b.ToTable("DadosPessoais");
-                });
-
-            modelBuilder.Entity("Projeto_Next.Models.EnderecoComercial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Bairro")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CEP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cidade")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Complemento")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Logradouro")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Numero")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tipo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UF")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EnderecoComercial");
                 });
 
             modelBuilder.Entity("Projeto_Next.Models.EnderecoResidencial", b =>
@@ -134,12 +95,6 @@ namespace Projeto_Next.Migrations
 
             modelBuilder.Entity("Projeto_Next.Models.DadosPessoais", b =>
                 {
-                    b.HasOne("Projeto_Next.Models.EnderecoComercial", "EnderecosComercial")
-                        .WithMany()
-                        .HasForeignKey("EnderecosComercialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Projeto_Next.Models.EnderecoResidencial", "EnderecosResidencial")
                         .WithMany()
                         .HasForeignKey("EnderecosResidencialId")

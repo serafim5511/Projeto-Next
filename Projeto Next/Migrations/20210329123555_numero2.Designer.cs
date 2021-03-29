@@ -9,8 +9,8 @@ using Projeto_Next.Models;
 namespace Projeto_Next.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210307201213_atualizacao")]
-    partial class atualizacao
+    [Migration("20210329123555_numero2")]
+    partial class numero2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,9 @@ namespace Projeto_Next.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Senha")
                         .HasColumnType("nvarchar(max)");

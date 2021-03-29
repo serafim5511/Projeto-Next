@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Projeto_Next.Models
+namespace ApiNext.Models
 {
     public class Context:DbContext
     {
